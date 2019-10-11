@@ -3,9 +3,9 @@
 	"publisher": "x-translator",
 	"displayName": "x-translator",
 	"description": "x-translator",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"engines": {
-		"vscode": "^1.38.0"
+		"vscode": "^1.0.0"
 	},
 	"categories": [
 		"Other"
