@@ -20,16 +20,15 @@ export const translate = () => {
   const text = editor.document.getText(range) || '';
   youdao.translate(text).then(async (res: TranslatorResult) => {
     if(res.dict) {
-      let data: any[] = await processingData(res.dict);
-      if (data.length > 1) {
-        vswindow.showQuickPick(data, {
+      twiceTranslate(res.dict).then((twiceTranslateResult: QuickPickItem[]) => {
+        vswindow.showQuickPick(twiceTranslateResult, {
           matchOnDescription: true
-        }).then((item: QuickPickItem) => {
-          editor.edit(edit => edit.replace(range, item.label));
+        }).then((item: QuickPickItem | undefined) => {
+          if (item !== undefined) {
+            editor.edit(edit => edit.replace(range, item.label));
+          }
         });
-      } else {
-        editor.edit(edit => edit.replace(range, data[0].label));
-      }
+      });
     } else {
       vswindow.showInformationMessage('Translation failed!');
     }
@@ -37,18 +36,16 @@ export const translate = () => {
 };
 
 // 为每一项进行翻译
-async function processingData (data: string[]) {
-  const _data: QuickPickItem[] = data.map((item: string) => {
-    const label = item.replace(/\[.*?\] /g,'');
-    return {
-      label,
-      description: '',
-      detail: ''
-    };
+async function twiceTranslate (data: string[]): Promise<QuickPickItem[]> {
+  const result: QuickPickItem[] = data.map((item: string) => {
+    const quickPickItem: QuickPickItem = { label: item.replace(/\[.*?\] /g,'') };
+    return quickPickItem;
   });
-  const promises = _data.map(async(item) => {
-    await youdao.translate(item.label).then((res: TranslatorResult) => item.detail = res.dict ? res.dict.join('  |  ') : '');
+  const promises = result.map(async item => {
+    await youdao.translate(item.label).then((res: TranslatorResult) => {
+      return item.detail = res.dict ? res.dict.join('  |  ') : '';
+    });
   });
   await Promise.all(promises);
-  return _data;
+  return result;
 }

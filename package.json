@@ -3,9 +3,9 @@
 	"publisher": "x-translator",
 	"displayName": "x-translator",
 	"description": "x-translator",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"engines": {
-		"vscode": "^1.0.0"
+		"vscode": "^1.14.0"
 	},
 	"categories": [
 		"Other"
@@ -15,23 +15,29 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
-		"commands": [{
-			"command": "extension.XTranslator",
-			"title": "x-translator"
-		}],
-		"menus": {
-			"editor/context": [{
+		"commands": [
+			{
 				"command": "extension.XTranslator",
-				"when": "editorHasSelection",
-				"group": "x-translator"
-			}]
+				"title": "x-translator"
+			}
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"command": "extension.XTranslator",
+					"when": "editorHasSelection",
+					"group": "x-translator"
+				}
+			]
 		},
-		"keybindings": [{
-			"command": "extension.XTranslator",
-			"key": "ctrl+shift+r",
-			"mac": "cmd+shift+r",
-			"when": "editorHasSelection"
-		}]
+		"keybindings": [
+			{
+				"command": "extension.XTranslator",
+				"key": "ctrl+shift+r",
+				"mac": "cmd+shift+r",
+				"when": "editorHasSelection"
+			}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "yarn run compile",
@@ -44,7 +50,7 @@
 		"@types/glob": "^7.1.1",
 		"@types/mocha": "^5.2.6",
 		"@types/node": "^10.12.21",
-		"@types/vscode": "^1.38.0",
+		"@types/vscode": "^1.14.0",
 		"glob": "^7.1.4",
 		"mocha": "^6.1.4",
 		"tslint": "^5.12.1",
@@ -52,9 +58,6 @@
 		"vscode-test": "^1.2.0"
 	},
 	"dependencies": {
-		"axios": "^0.19.0",
-		"js-md5": "^0.7.3",
-		"sha256": "^0.2.0",
 		"translation.js": "^0.7.9"
 	}
 }
