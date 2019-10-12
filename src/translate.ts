@@ -3,10 +3,12 @@ import {
 	Range,
   QuickPickItem,
 } from "vscode";
-import { youdao } from 'translation.js';
+import { google } from 'translation.js';
 
-export interface TranslatorResult {
-  dict?: string[];
+interface GoogleTranslateResult {
+  raw: Array<Array<Array<Array<string>>>>;
+  dict?: Array<string>;
+  result?: Array<string>;
 }
 
 export const translate = () => {
@@ -18,20 +20,34 @@ export const translate = () => {
   const selections = editor.selections;
   const range = new Range(selections[0].start, selections[selections.length - 1].end);
   const text = editor.document.getText(range) || '';
-  youdao.translate(text).then(async (res: TranslatorResult) => {
-    if(res.dict) {
-      twiceTranslate(res.dict).then((twiceTranslateResult: QuickPickItem[]) => {
-        vswindow.showQuickPick(twiceTranslateResult, {
-          matchOnDescription: true
-        }).then((item: QuickPickItem | undefined) => {
-          if (item !== undefined) {
-            editor.edit(edit => edit.replace(range, item.label));
+  google.translate(text).then(async (res: GoogleTranslateResult) => {
+    const translateData: string[] = [];
+    if (res.result ) {
+      translateData.push(res.result[0]);
+    }
+    if (res.raw[1]) {
+      res.raw[1].forEach((rawItem) => {
+        rawItem[1].forEach(item => {
+          if (item !== translateData[0]) {
+            translateData.push(item);
           }
         });
       });
-    } else {
+    }
+    if (translateData.length === 0) {
       vswindow.showInformationMessage('Translation failed!');
     }
+    twiceTranslate(translateData).then((twiceTranslateResult: QuickPickItem[]) => {
+      vswindow.showQuickPick(twiceTranslateResult, {
+        matchOnDescription: true
+      }).then((item: QuickPickItem | undefined) => {
+        if (item !== undefined) {
+          editor.edit(edit => edit.replace(range, item.label));
+        }
+      });
+    }).catch(() => {
+      vswindow.showInformationMessage('Translation failed!');
+    });
   });
 };
 
@@ -42,7 +58,7 @@ async function twiceTranslate (data: string[]): Promise<QuickPickItem[]> {
     return quickPickItem;
   });
   const promises = result.map(async item => {
-    await youdao.translate(item.label).then((res: TranslatorResult) => {
+    await google.translate(item.label).then((res: GoogleTranslateResult) => {
       return item.detail = res.dict ? res.dict.join('  |  ') : '';
     });
   });
