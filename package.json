@@ -2,10 +2,15 @@
 	"name": "x-translator",
 	"publisher": "codexu",
 	"displayName": "x-translator",
-	"description": "x-translator",
+	"description": "一键翻译&替换",
+	"keywords": [
+		"translation",
+		"variable",
+		"select"
+  ],
 	"repository": "https://github.com/codexu/x-translator",
 	"icon": "images/logo.png",
-	"version": "0.0.10",
+	"version": "0.0.12",
 	"engines": {
 		"vscode": "^1.14.0"
 	},

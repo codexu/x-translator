@@ -4,6 +4,8 @@ import {
   QuickPickItem,
 } from "vscode";
 import { google } from 'translation.js';
+import han from './isHan';
+import * as ConvertString from './convertString';
 
 interface GoogleTranslateResult {
   raw: string[][][][];
@@ -24,7 +26,14 @@ export const translate = () => {
     const translateData: string[] = ProcessingTranslationResults(res);
     twiceTranslate(translateData).then((twiceTranslateResult: QuickPickItem[]) => {
       showQuickPick(twiceTranslateResult).then((item: QuickPickItem) => {
-        editor.edit(edit => edit.replace(range, item.label));
+        if (han(item.label) || item.label.split(' ').length === 1) {
+          editor.edit(edit => edit.replace(range, item.label));
+        } else {
+          const quickPick: QuickPickItem[] = namingConventions(item.label);
+          showQuickPick(quickPick).then((item: QuickPickItem) => {
+            editor.edit(edit => edit.replace(range, <string>item.description));
+          });
+        }
       });
     }).catch(() => {
       vswindow.showInformationMessage('Translation failed!');
@@ -79,4 +88,34 @@ function showQuickPick (twiceTranslateResult: QuickPickItem[]): Promise<QuickPic
       }
     });
   });
+}
+
+// 命名规则转化
+function namingConventions (str: string) {
+  return [
+    {
+      label: '默认',
+      description: str
+    },
+    {
+      label: '小驼峰',
+      description: ConvertString.smallHump(str)
+    },
+    {
+      label: '大驼峰',
+      description: ConvertString.bigHump(str)
+    },
+    {
+      label: '连词线',
+      description: ConvertString.wordLine(str)
+    },
+    {
+      label: '下划线',
+      description: ConvertString.underline(str)
+    },
+    {
+      label: '常量',
+      description: ConvertString.constant(str)
+    },
+  ];
 }
