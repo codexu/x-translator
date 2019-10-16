@@ -1,9 +1,11 @@
 {
 	"name": "x-translator",
-	"publisher": "x-translator",
+	"publisher": "codexu",
 	"displayName": "x-translator",
 	"description": "x-translator",
-	"version": "0.0.8",
+	"repository": "https://github.com/codexu/x-translator",
+	"icon": "images/logo.png",
+	"version": "0.0.10",
 	"engines": {
 		"vscode": "^1.14.0"
 	},
