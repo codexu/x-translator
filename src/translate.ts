@@ -1,121 +1,36 @@
-import {
-	window as vswindow,
-	Range,
-  QuickPickItem,
-} from "vscode";
+import { window, Range, QuickPickItem } from "vscode";
 import { google } from 'translation.js';
-import han from './isHan';
-import * as ConvertString from './convertString';
+import han from './libs/is-han';
+import namingConventions from './libs/naming-conventions';
+import processingTranslationResults from './libs/processing-translation-results';
+import twiceTranslate from './libs/twice-translate';
+import showQuickPick from './libs/show-quick-pick';
 
-interface GoogleTranslateResult {
-  raw: string[][][][];
-  dict?: string[];
-  result?: string[];
-}
-
-export const translate = () => {
-  const editor = vswindow.activeTextEditor;
+export const translate = async () => {
+  const editor = window.activeTextEditor;
   if (!editor) {
-    vswindow.showInformationMessage('Open a file first to manipulate text selections');
+    window.showInformationMessage('Open a file first to manipulate text selections');
     return;
   }
+  // 获取选中的文本
   const selections = editor.selections;
   const range = new Range(selections[0].start, selections[selections.length - 1].end);
   const text = editor.document.getText(range) || '';
-  google.translate(text).then(async (res: GoogleTranslateResult) => {
-    const translateData: string[] = ProcessingTranslationResults(res);
-    twiceTranslate(translateData).then((twiceTranslateResult: QuickPickItem[]) => {
-      showQuickPick(twiceTranslateResult).then((item: QuickPickItem) => {
-        if (han(item.label) || item.label.split(' ').length === 1) {
-          editor.edit(edit => edit.replace(range, item.label));
-        } else {
-          const quickPick: QuickPickItem[] = namingConventions(item.label);
-          showQuickPick(quickPick).then((item: QuickPickItem) => {
-            editor.edit(edit => edit.replace(range, <string>item.description));
-          });
-        }
-      });
-    }).catch(() => {
-      vswindow.showInformationMessage('Translation failed!');
+  // 首次翻译
+  const translateResult = await google.translate(text).then(async (res) => processingTranslationResults(res));
+  // 二次翻译
+  const twiceTranslateResult = await twiceTranslate(translateResult).then((res: QuickPickItem[]) => res);
+  // 选择翻译结果
+  const pickItem = await showQuickPick(twiceTranslateResult).then((item: QuickPickItem) => item);
+  // 判断翻译结果是否是汉语 或 翻译结果只有一个单词
+  if (han(pickItem.label) || pickItem.label.split(' ').length === 1) {
+    // 汉语 或 一个单词
+    editor.edit(edit => edit.replace(range, pickItem.label));
+  } else {
+    // 多个英文 弹出快速选择 命名规则
+    const quickPick: QuickPickItem[] = namingConventions(pickItem.label);
+    showQuickPick(quickPick).then((item: QuickPickItem) => {
+      editor.edit(edit => edit.replace(range, <string>item.description));
     });
-  });
+  }
 };
-
-// 处理请求结果数据
-function ProcessingTranslationResults (res: GoogleTranslateResult): string[] {
-  const TranslationResults: string[] = [];
-  if (res.result ) {
-    TranslationResults.push(res.result[0]);
-  }
-  if (res.raw[1]) {
-    res.raw[1].forEach((rawItem) => {
-      rawItem[1].forEach(item => {
-        if (item !== TranslationResults[0]) {
-          TranslationResults.push(item);
-        }
-      });
-    });
-  }
-  if (TranslationResults.length === 0) {
-    vswindow.showInformationMessage('Translation failed!');
-  }
-  return TranslationResults;
-}
-
-// 为每一项进行翻译
-async function twiceTranslate (data: string[]): Promise<QuickPickItem[]> {
-  const result: QuickPickItem[] = data.map((item: string) => {
-    const quickPickItem: QuickPickItem = { label: item.replace(/\[.*?\] /g,'') };
-    return quickPickItem;
-  });
-  const promises = result.map(async item => {
-    await google.translate(item.label).then((res: GoogleTranslateResult) => {
-      return item.detail = res.dict ? res.dict.join('  |  ') : '';
-    });
-  });
-  await Promise.all(promises);
-  return result;
-}
-
-// 翻译结果 展示 -> 快速选择栏
-function showQuickPick (twiceTranslateResult: QuickPickItem[]): Promise<QuickPickItem> {
-  return new Promise(resolve => {
-    vswindow.showQuickPick(twiceTranslateResult, {
-      matchOnDescription: true
-    }).then((item: QuickPickItem | undefined) => {
-      if (item !== undefined) {
-        resolve(item);
-      }
-    });
-  });
-}
-
-// 命名规则转化
-function namingConventions (str: string) {
-  return [
-    {
-      label: '默认',
-      description: str
-    },
-    {
-      label: '小驼峰',
-      description: ConvertString.smallHump(str)
-    },
-    {
-      label: '大驼峰',
-      description: ConvertString.bigHump(str)
-    },
-    {
-      label: '连词线',
-      description: ConvertString.wordLine(str)
-    },
-    {
-      label: '下划线',
-      description: ConvertString.underline(str)
-    },
-    {
-      label: '常量',
-      description: ConvertString.constant(str)
-    },
-  ];
-}

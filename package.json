@@ -10,7 +10,7 @@
   ],
 	"repository": "https://github.com/codexu/x-translator",
 	"icon": "images/logo.png",
-	"version": "0.0.13",
+	"version": "0.1.0",
 	"engines": {
 		"vscode": "^1.14.0"
 	},

@@ -1,6 +1,6 @@
 export const smallHump = (str: string): string => {
-  const strArr = str.split(' ');
-  let result = '';
+  const strArr: string[] = str.split(' ');
+  let result: string = '';
   strArr.forEach((item, index) => {
     if (index === 0) {
       result += item.toLocaleLowerCase();
@@ -12,8 +12,8 @@ export const smallHump = (str: string): string => {
 };
 
 export const bigHump = (str: string): string => {
-  const strArr = str.split(' ');
-  let result = '';
+  const strArr: string[] = str.split(' ');
+  let result: string = '';
   strArr.forEach((item, index) => {
     result += item.charAt(0).toLocaleUpperCase() + item.substring(1);
   });
@@ -21,8 +21,8 @@ export const bigHump = (str: string): string => {
 };
 
 export const wordLine = (str: string): string => {
-  const strArr = str.split(' ');
-  let result = '';
+  const strArr: string[] = str.split(' ');
+  let result: string = '';
   strArr.forEach((item, index) => {
     if (index === 0) {
       result += item.toLocaleLowerCase();
@@ -34,8 +34,8 @@ export const wordLine = (str: string): string => {
 };
 
 export const underline = (str: string): string => {
-  const strArr = str.split(' ');
-  let result = '';
+  const strArr: string[] = str.split(' ');
+  let result: string = '';
   strArr.forEach((item, index) => {
     if (index === 0) {
       result += item.toLocaleLowerCase();
@@ -47,8 +47,8 @@ export const underline = (str: string): string => {
 };
 
 export const constant = (str: string): string => {
-  const strArr = str.split(' ');
-  let result = '';
+  const strArr: string[] = str.split(' ');
+  let result: string = '';
   strArr.forEach((item, index) => {
     if (index === 0) {
       result += item.toLocaleUpperCase();
