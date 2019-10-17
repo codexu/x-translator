@@ -10,7 +10,7 @@
 	],
 	"repository": "https://github.com/codexu/x-translator",
 	"icon": "images/logo.png",
-	"version": "0.1.1",
+	"version": "0.1.3",
 	"engines": {
 		"vscode": "^1.14.0"
 	},
@@ -32,28 +32,34 @@
 						"youdao",
 						"baidu"
 					],
-					"default": "google",
+					"default": "youdao",
 					"description": "选择翻译服务商，设置完请重新打开vscode。"
 				}
 			}
 		},
-		"commands": [{
-			"command": "extension.XTranslator",
-			"title": "x-translator"
-		}],
-		"menus": {
-			"editor/context": [{
+		"commands": [
+			{
 				"command": "extension.XTranslator",
-				"when": "editorHasSelection",
-				"group": "x-translator"
-			}]
+				"title": "x-translator"
+			}
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"command": "extension.XTranslator",
+					"when": "editorHasSelection",
+					"group": "x-translator"
+				}
+			]
 		},
-		"keybindings": [{
-			"command": "extension.XTranslator",
-			"key": "ctrl+shift+r",
-			"mac": "cmd+shift+r",
-			"when": "editorHasSelection"
-		}]
+		"keybindings": [
+			{
+				"command": "extension.XTranslator",
+				"key": "ctrl+shift+r",
+				"mac": "cmd+shift+r",
+				"when": "editorHasSelection"
+			}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "yarn run compile",
@@ -74,6 +80,6 @@
 		"vscode-test": "^1.2.0"
 	},
 	"dependencies": {
-		"translation.js": "^0.7.9"
+		"translation.js": "^0.7.12"
 	}
 }

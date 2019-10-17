@@ -57,10 +57,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.14.20.tgz#c4378d9d6a62faa5c9aafffc3d726b5a1e7367c6"
   integrity sha512-An+MXSV8CGXz/BO9C1KKsoJ/8WDrvlNUaRMsm2h+IHZuSyQkM8U5bJJkb8ItLKA73VePG/nUK+t+EuW2IWuhsQ==
 
-"@types/node@^11.13.7":
-  version "11.13.22"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.22.tgz#91ee88ebfa25072433497f6f3150f84fa8c3a91b"
-  integrity sha512-rOsaPRUGTOXbRBOKToy4cgZXY4Y+QSVhxcLwdEveozbk7yuudhWMpxxcaXqYizLMP3VY7OcWCFtx9lGFh5j5kg==
+"@types/node@^12.7.12":
+  version "12.11.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.11.1.tgz#1fd7b821f798b7fa29f667a1be8f3442bb8922a3"
+  integrity sha512-TJtwsqZ39pqcljJpajeoofYRfeZ7/I/OMUQ5pR4q5wOKf2ocrUvBAZUMhWsOvKx3dVc/aaV5GluBivt0sWqA5A==
 
 "@types/vscode@^1.14.0":
   version "1.39.0"
@@ -695,13 +695,13 @@ supports-color@^5.3.0:
   dependencies:
     has-flag "^3.0.0"
 
-translation.js@^0.7.9:
-  version "0.7.9"
-  resolved "https://registry.yarnpkg.com/translation.js/-/translation.js-0.7.9.tgz#ec86639c7d58c3716c65ef03015c8556f2806539"
-  integrity sha512-exbWpYjp/TGT+l86BIhIg+uCRDErUripcJ9LwPs6cqjAwuU7t78FgOtTTA7VzP/NENt8PrqdaTx6Rtj/eNMzwQ==
+translation.js@^0.7.12:
+  version "0.7.12"
+  resolved "https://registry.yarnpkg.com/translation.js/-/translation.js-0.7.12.tgz#5ac61e964fcb787c750c7d4fcad798fd5090d05e"
+  integrity sha512-hJtd3KO2iQI35e9g45fJKHO/lKXigRqP7iYanm7Qz7Axuwz5F+IxwfoTfhtpMn3vXHEXwC6FqBUu+kE8hOEkhQ==
   dependencies:
     "@types/blueimp-md5" "^2.7.0"
-    "@types/node" "^11.13.7"
+    "@types/node" "^12.7.12"
     blueimp-md5 "^2.10.0"
     tslib "^1.9.3"
 
