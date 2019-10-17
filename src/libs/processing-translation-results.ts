@@ -1,7 +1,7 @@
-import { GoogleTranslateResult } from './interface';
+import { TranslateResult } from './interface';
 
 // 处理请求结果数据
-export default function ProcessingTranslationResults (res: GoogleTranslateResult): string[] {
+export default function ProcessingTranslationResults (res: TranslateResult): string[] {
   let TranslationResults: string[] = [];
   if (res.result) {
     TranslationResults.push(res.result[0]);
