@@ -2,7 +2,7 @@
 	"name": "x-translator",
 	"publisher": "codexu",
 	"displayName": "x-translator",
-	"description": "一键翻译&替换",
+	"description": "一键翻译、命名规则、替换。",
 	"keywords": [
 		"translation",
 		"variable",
@@ -10,7 +10,7 @@
   ],
 	"repository": "https://github.com/codexu/x-translator",
 	"icon": "images/logo.png",
-	"version": "0.0.12",
+	"version": "0.0.13",
 	"engines": {
 		"vscode": "^1.14.0"
 	},
