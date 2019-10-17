@@ -10,7 +10,7 @@
 	],
 	"repository": "https://github.com/codexu/x-translator",
 	"icon": "images/logo.png",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"engines": {
 		"vscode": "^1.14.0"
 	},
@@ -32,7 +32,7 @@
 						"youdao",
 						"baidu"
 					],
-					"default": "google",
+					"default": "youdao",
 					"description": "选择翻译服务商，设置完请重新打开vscode。"
 				}
 			}
@@ -80,6 +80,7 @@
 		"vscode-test": "^1.2.0"
 	},
 	"dependencies": {
+		"@types/lodash": "^4.14.144",
 		"translation.js": "^0.7.12"
 	}
 }

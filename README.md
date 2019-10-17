@@ -9,6 +9,6 @@ MacOS: Cmd + shift + r
 Window: Ctrl + shift + r
 ```
 
-提供 Google（默认）、百度、有道 三种翻译服务商，请自行配置。
+提供 有道（默认）、百度、Google 三种翻译服务商，请自行配置。
 
 ![配置](https://tva1.sinaimg.cn/large/006y8mN6ly1g81axw8bi7j30wq0b0ta2.jpg)

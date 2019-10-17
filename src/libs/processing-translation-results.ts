@@ -1,21 +1,17 @@
 import { TranslateResult } from './interface';
 
+import * as _ from 'lodash';
+
 // 处理请求结果数据
 export default function ProcessingTranslationResults (res: TranslateResult): string[] {
-  let TranslationResults: string[] = [];
+  let result: string[] = [];
+  if (res.dict) {
+    result.push(...res.dict);
+  }
   if (res.result) {
-    TranslationResults.push(res.result[0]);
+    result.push(res.result[0]);
   }
-  if (TranslationResults) {
-    if (res.raw[1]) {
-      res.raw[1].forEach((rawItem) => {
-        rawItem[1].forEach(item => {
-          if (item !== TranslationResults[0]) {
-            TranslationResults.push(item);
-          }
-        });
-      });
-    }
-  }
-  return TranslationResults;
+  result = result.map(item => item.replace(/\[.*?\] /g,''));
+  result = _.uniq(result).filter(item => !_.isEmpty(item));
+  return result;
 }

@@ -5,12 +5,17 @@ import { TranslateResult } from './interface';
 // 为每一项进行翻译
 export default async function twiceTranslate (data: string[]): Promise<QuickPickItem[]> {
   const result: QuickPickItem[] = data.map((item: string) => {
-    const quickPickItem: QuickPickItem = { label: item.replace(/\[.*?\] /g,'') };
+    const quickPickItem: QuickPickItem = { label: item };
     return quickPickItem;
   });
   const promises = result.map(async item => {
     await Translator.translate(item.label).then((res: TranslateResult) => {
-      return item.detail = res.dict ? res.dict.join('  |  ') : '';
+      let result = '';
+      result += res.result;
+      if (res.dict) {
+        res.dict.forEach(item => result += ` 【${item}】`);
+      }
+      item.detail = result;
     });
   });
   await Promise.all(promises);
