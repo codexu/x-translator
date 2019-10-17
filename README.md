@@ -8,3 +8,5 @@ Window: Ctrl + shift + r
 ```
 
 ![翻译](https://tva1.sinaimg.cn/large/006y8mN6ly1g80yqx8v2yg30xc0j9q5k.gif)
+
+提供 Google（默认）、百度、有道 三种翻译服务商，请自行配置。

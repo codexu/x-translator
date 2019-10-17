@@ -1,5 +1,5 @@
 import { QuickPickItem } from "vscode";
-import { google } from 'translation.js';
+import Translator from './get-main-translator';
 import { GoogleTranslateResult } from './interface';
 
 // 为每一项进行翻译
@@ -9,7 +9,7 @@ export default async function twiceTranslate (data: string[]): Promise<QuickPick
     return quickPickItem;
   });
   const promises = result.map(async item => {
-    await google.translate(item.label).then((res: GoogleTranslateResult) => {
+    await Translator.translate(item.label).then((res: GoogleTranslateResult) => {
       return item.detail = res.dict ? res.dict.join('  |  ') : '';
     });
   });

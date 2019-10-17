@@ -1,5 +1,5 @@
 import { window, Range, QuickPickItem } from "vscode";
-import { google } from 'translation.js';
+import Translator from './libs/get-main-translator';
 import han from './libs/is-han';
 import namingConventions from './libs/naming-conventions';
 import processingTranslationResults from './libs/processing-translation-results';
@@ -17,11 +17,11 @@ export const translate = async () => {
   const range = new Range(selections[0].start, selections[selections.length - 1].end);
   const text = editor.document.getText(range) || '';
   // 首次翻译
-  const translateResult = await google.translate(text).then(async (res) => processingTranslationResults(res));
+  const translateResult: string[] = await Translator.translate(text).then(async (res) => processingTranslationResults(res));
   // 二次翻译
-  const twiceTranslateResult = await twiceTranslate(translateResult).then((res: QuickPickItem[]) => res);
+  const twiceTranslateResult: QuickPickItem[] = await twiceTranslate(translateResult).then(res => res);
   // 选择翻译结果
-  const pickItem = await showQuickPick(twiceTranslateResult).then((item: QuickPickItem) => item);
+  const pickItem: QuickPickItem = await showQuickPick(twiceTranslateResult).then(res => res);
   // 判断翻译结果是否是汉语 或 翻译结果只有一个单词
   if (han(pickItem.label) || pickItem.label.split(' ').length === 1) {
     // 汉语 或 一个单词
