@@ -11,9 +11,9 @@ export default async function twiceTranslate (data: string[]): Promise<QuickPick
   const promises = result.map(async item => {
     await Translator.translate(item.label).then((res: TranslateResult) => {
       let result = '';
-      result += res.result;
+      result += `【${res.result}】`;
       if (res.dict) {
-        res.dict.forEach(item => result += ` 【${item}】`);
+        res.dict.forEach(item => result += ` [ ${item} ]`);
       }
       item.detail = result;
     });
