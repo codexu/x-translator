@@ -5,7 +5,7 @@ import { TranslateResult } from './interface';
 
 // 为每一项进行翻译
 export default async function twiceTranslate (data: string[]): Promise<QuickPickItem[]> {
-  const result: QuickPickItem[] = data.map((label: string) => <QuickPickItem>{ label });
+  const result: QuickPickItem[] = data.map(label => <QuickPickItem>{ label });
   const promises = result.map(async item => {
     await Translator.translate(item.label).then((res: TranslateResult) => {
       let detail: string = '';

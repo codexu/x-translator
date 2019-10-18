@@ -17,11 +17,13 @@ export const translate = async () => {
   const range = new Range(selections[0].start, selections[selections.length - 1].end);
   const text = editor.document.getText(range) || '';
   // 首次翻译
-  const translateResult: string[] = await Translator.translate(text).then(async (res) => processingTranslationResults(res));
+  const translateResult = await Translator.translate(text);
+  // 处理首次翻译结果
+  const processingTranslateResult: string[] = processingTranslationResults(translateResult);
   // 二次翻译
-  const twiceTranslateResult: QuickPickItem[] = await twiceTranslate(translateResult).then(res => res);
+  const twiceTranslateResult: QuickPickItem[] = await twiceTranslate(processingTranslateResult);
   // 选择翻译结果
-  const pickItem: QuickPickItem = await showQuickPick(twiceTranslateResult).then(res => res);
+  const pickItem: QuickPickItem = await showQuickPick(twiceTranslateResult);
   // 判断翻译结果是否是汉语 或 翻译结果只有一个单词
   if (han(pickItem.label) || pickItem.label.split(' ').length === 1) {
     // 汉语 或 一个单词
