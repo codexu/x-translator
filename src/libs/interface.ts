@@ -1,5 +1,5 @@
+// 通过 translation.js 得到的翻译结果
 export interface TranslateResult {
-  raw: string[][][][];
   dict?: string[];
   result?: string[];
 }

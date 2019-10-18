@@ -1,3 +1,4 @@
+// 转换小驼峰
 export const smallHump = (str: string): string => {
   const strArr: string[] = str.split(' ');
   let result: string = '';
@@ -11,6 +12,7 @@ export const smallHump = (str: string): string => {
   return result;
 };
 
+// 转换大驼峰
 export const bigHump = (str: string): string => {
   const strArr: string[] = str.split(' ');
   let result: string = '';
@@ -20,6 +22,7 @@ export const bigHump = (str: string): string => {
   return result;
 };
 
+// 转换连词线
 export const wordLine = (str: string): string => {
   const strArr: string[] = str.split(' ');
   let result: string = '';
@@ -33,6 +36,7 @@ export const wordLine = (str: string): string => {
   return result;
 };
 
+// 转换下划线
 export const underline = (str: string): string => {
   const strArr: string[] = str.split(' ');
   let result: string = '';
@@ -46,6 +50,7 @@ export const underline = (str: string): string => {
   return result;
 };
 
+// 转换常量
 export const constant = (str: string): string => {
   const strArr: string[] = str.split(' ');
   let result: string = '';

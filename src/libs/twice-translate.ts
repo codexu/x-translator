@@ -1,21 +1,19 @@
 import { QuickPickItem } from "vscode";
+import * as _ from 'lodash';
 import Translator from './get-main-translator';
 import { TranslateResult } from './interface';
 
 // 为每一项进行翻译
 export default async function twiceTranslate (data: string[]): Promise<QuickPickItem[]> {
-  const result: QuickPickItem[] = data.map((item: string) => {
-    const quickPickItem: QuickPickItem = { label: item };
-    return quickPickItem;
-  });
+  const result: QuickPickItem[] = data.map((label: string) => <QuickPickItem>{ label });
   const promises = result.map(async item => {
     await Translator.translate(item.label).then((res: TranslateResult) => {
-      let result = '';
-      result += `【${res.result}】`;
+      let detail: string = '';
       if (res.dict) {
-        res.dict.forEach(item => result += ` [ ${item} ]`);
+        res.dict.filter(item => !_.isEmpty(item)).forEach(item => detail += `[ ${item} ] `);
       }
-      item.detail = result;
+      item.description = res.result ? `【 ${res.result[0]} 】` : '';
+      item.detail = detail;
     });
   });
   await Promise.all(promises);
