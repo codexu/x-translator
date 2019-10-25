@@ -10,7 +10,7 @@
 	],
 	"repository": "https://github.com/codexu/x-translator",
 	"icon": "images/logo.png",
-	"version": "0.1.9",
+	"version": "0.1.10",
 	"engines": {
 		"vscode": "^1.14.0"
 	},
@@ -18,7 +18,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.XTranslator"
+		"onCommand:extension.x-translator"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -39,14 +39,14 @@
 		},
 		"commands": [
 			{
-				"command": "extension.XTranslator",
+				"command": "extension.x-translator",
 				"title": "x-translator"
 			}
 		],
 		"menus": {
 			"editor/context": [
 				{
-					"command": "extension.XTranslator",
+					"command": "extension.x-translator",
 					"when": "editorHasSelection",
 					"group": "x-translator"
 				}
@@ -54,7 +54,7 @@
 		},
 		"keybindings": [
 			{
-				"command": "extension.XTranslator",
+				"command": "extension.x-translator",
 				"key": "ctrl+shift+r",
 				"mac": "cmd+shift+r",
 				"when": "editorHasSelection"
