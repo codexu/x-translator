@@ -1,11 +1,11 @@
 import { window, Range, QuickPickItem } from "vscode";
 import { words } from 'lodash';
-import Translator from './libs/get-main-translator';
-import han from './libs/is-han';
-import namingConventions from './libs/naming-conventions';
-import processingTranslationResults from './libs/processing-translation-results';
-import twiceTranslate from './libs/twice-translate';
-import showQuickPick from './libs/show-quick-pick';
+import Translator from './libs/getMainTranslator';
+import han from './libs/isHan';
+import namingConventions from './libs/namingConventions';
+import processingTranslationResults from './libs/processingTranslationResults';
+import twiceTranslate from './libs/twiceTranslate';
+import showQuickPick from './libs/showQuickPick';
 
 export const translate = async () => {
   const editor = window.activeTextEditor;
@@ -13,24 +13,24 @@ export const translate = async () => {
     window.showInformationMessage('Open a file first to manipulate text selections');
     return;
   }
-  // 获取选中的文本
+  // Access to the selected text
   const selections = editor.selections;
   const range = new Range(selections[0].start, selections[selections.length - 1].end);
   const text = editor.document.getText(range) || '';
-  // 首次翻译
+  // For the first time to translate
   const translateResult = await Translator.translate(words(text).join(' '));
-  // 处理首次翻译结果
+  // To deal with translation results for the first time
   const processingTranslateResult: string[] = processingTranslationResults(translateResult);
-  // 二次翻译
+  // The second translation
   const twiceTranslateResult: QuickPickItem[] = await twiceTranslate(processingTranslateResult);
-  // 选择翻译结果
+  // Select translation results
   const pickItem: QuickPickItem = await showQuickPick(twiceTranslateResult);
-  // 判断翻译结果是否是汉语 或 翻译结果只有一个单词
+  // To determine whether translation result Chinese or translation result is only one word
   if (han(pickItem.label) || pickItem.label.split(' ').length === 1) {
-    // 汉语 或 一个单词
+    // Chinese or a word
     editor.edit(edit => edit.replace(range, pickItem.label));
   } else {
-    // 多个英文 弹出快速选择 命名规则
+    // Multiple popup choose a naming rules in English
     const quickPick: QuickPickItem[] = namingConventions(pickItem.label);
     showQuickPick(quickPick).then((item: QuickPickItem) => {
       editor.edit(edit => edit.replace(range, <string>item.description));

@@ -2,7 +2,7 @@ import { TranslateResult } from './interface';
 
 import * as _ from 'lodash';
 
-// 处理请求结果数据
+// The resulting data processing request
 export default function ProcessingTranslationResults (res: TranslateResult): string[] {
   let result: string[] = [];
   if (res.dict) {

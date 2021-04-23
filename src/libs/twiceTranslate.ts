@@ -1,9 +1,9 @@
 import { QuickPickItem } from "vscode";
 import * as _ from 'lodash';
-import Translator from './get-main-translator';
+import Translator from './getMainTranslator';
 import { TranslateResult } from './interface';
 
-// 为每一项进行翻译
+// For each one for translation
 export default async function twiceTranslate (data: string[]): Promise<QuickPickItem[]> {
   const result: QuickPickItem[] = data.map(label => <QuickPickItem>{ label });
   const promises = result.map(async item => {

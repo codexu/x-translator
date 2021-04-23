@@ -1,6 +1,6 @@
 import { window, QuickPickItem } from "vscode";
 
-// 翻译结果 展示 -> 快速选择栏
+// Translation results show rapid choose toolbar
 export default function showQuickPick (res: QuickPickItem[]): Promise<QuickPickItem> {
   return new Promise(resolve => {
     window.showQuickPick(res, {

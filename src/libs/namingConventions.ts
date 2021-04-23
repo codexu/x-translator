@@ -1,12 +1,7 @@
-import * as ConvertString from './convert-string';
+import * as ConvertString from './convertString';
 import { QuickPickItem } from "vscode";
 
-/**
- * 命名规则转化
- * @export
- * @param {string} str 翻译后的英文单词词组 2个以上单词
- * @returns {QuickPickItem[]} vscode 快速选择 数组
- */
+// The translated English word phrases more than two words
 export default function namingConventions (str: string): QuickPickItem[] {
   return [
     {

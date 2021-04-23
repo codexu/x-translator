@@ -1,4 +1,4 @@
-// 通过 translation.js 得到的翻译结果
+// Through the translation results of translation js
 export interface TranslateResult {
   dict?: string[];
   result?: string[];

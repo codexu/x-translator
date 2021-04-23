@@ -1,6 +1,6 @@
 {
 	"name": "x-translator",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"publisher": "codexu",
 	"displayName": "x-translator",
 	"description": "一键翻译->选择单词->选择命名规则->替换。",
