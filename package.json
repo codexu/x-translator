@@ -1,16 +1,16 @@
 {
 	"name": "x-translator",
+	"version": "1.0.0",
 	"publisher": "codexu",
 	"displayName": "x-translator",
-	"description": "一键翻译、命名规则、替换。",
+	"description": "一键翻译->选择单词->选择命名规则->替换。",
 	"keywords": [
 		"translation",
 		"variable",
 		"select"
 	],
-	"repository": "https://github.com/codexu/x-translator",
+	"repository": "https://github.com/code-device/x-translator",
 	"icon": "images/logo.png",
-	"version": "0.1.13",
 	"engines": {
 		"vscode": "^1.14.0"
 	},

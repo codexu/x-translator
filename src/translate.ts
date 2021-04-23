@@ -1,4 +1,5 @@
 import { window, Range, QuickPickItem } from "vscode";
+import { words } from 'lodash';
 import Translator from './libs/get-main-translator';
 import han from './libs/is-han';
 import namingConventions from './libs/naming-conventions';
@@ -17,7 +18,7 @@ export const translate = async () => {
   const range = new Range(selections[0].start, selections[selections.length - 1].end);
   const text = editor.document.getText(range) || '';
   // 首次翻译
-  const translateResult = await Translator.translate(text);
+  const translateResult = await Translator.translate(words(text).join(' '));
   // 处理首次翻译结果
   const processingTranslateResult: string[] = processingTranslationResults(translateResult);
   // 二次翻译
