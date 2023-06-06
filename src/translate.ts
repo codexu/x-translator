@@ -32,7 +32,7 @@ export default async function() {
     textIsChinese ? 2 : 1
   );
   // 处理翻译结果
-  const processingTranslateResult = processingTranslationResults(translateResult);
+  const processingTranslateResult = await processingTranslationResults(translateResult);
   const pickItem = await showQuickPick(processingTranslateResult);
   if (isChinese(pickItem.label) || pickItem.label.split(" ").length === 1) {
     editor.edit((edit) => edit.replace(range, pickItem.label));
