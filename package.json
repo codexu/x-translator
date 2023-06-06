@@ -1,9 +1,9 @@
 {
   "name": "x-translator",
   "displayName": "Translator X",
-  "description": "一键翻译->选择单词->选择命名规则->替换。",
+  "description": "一键翻译并根据多种命名规则替换代码中选择的文本",
   "publisher": "codexu",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "icon": "logo.png",
   "engines": {
     "vscode": "^1.78.0"

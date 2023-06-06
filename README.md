@@ -1,14 +1,12 @@
 # Translator X
 
-[Translator X](https://github.com/codexu/x-translator) 是一个快速翻译插件，通过选中文本+快捷键达到快速翻译的效果，当翻译多个单词时，可以根据预设的命名规则（例如大小驼峰）的方式替换待翻译的文本。
-
-![翻译](https://tva1.sinaimg.cn/large/006y8mN6ly1g81ax2es1fg30m80cujt5.gif)
+[Translator X](https://github.com/codexu/x-translator) 是一个快速翻译插件，支持多种使用方式。用户可以选中待翻译的文本或语句，然后通过以下三种方式进行翻译。此外，这个插件还支持在翻译多个单词时，根据预设的命名规则（例如大小驼峰）进行替换操作。这个插件非常方便易用，能够大大提高开发效率。
 
 ## 使用方式
 
-打开文件，选中待翻译的词语或语句。
+打开文件，选中待翻译的文本或语句。
 
-### 方式1: 通过快捷键(推荐)
+### 方式1: 通过快捷键
 
 如果快捷键使用不便，请自定义快捷键
 
@@ -19,18 +17,8 @@ Window: Ctrl + shift + r
 
 ### 方式2: 通过鼠标右键调出菜单
 
-![右键](https://tva1.sinaimg.cn/large/006y8mN6ly1g82bbszdx9j30a008mmzv.jpg)
+右键调出菜单，选择 `一键翻译` 即可。
 
 ### 方式3: 通过命令面板
 
-通过命令面板，输入 `x-translator` 回车达到翻译目的。
-
-## 配置
-
-x-translator 提供 有道（默认）、百度、Google 三种翻译服务商，默认情况下有道提供可以提供更稳定的翻译效果，尽量不使用其他两种。
-
-![配置](https://tva1.sinaimg.cn/large/006y8mN6ly1g82bbthm2kj30go05mdgx.jpg)
-
-## LICENSE
-
-[MIT License](https://github.com/codexu/x-translator/blob/master/LICENSE)
+通过命令面板，输入 `一键翻译` 回车达到翻译目的。
