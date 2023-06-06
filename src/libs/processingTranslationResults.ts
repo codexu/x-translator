@@ -59,6 +59,9 @@ export default async function (res: string) {
       ))
       .filter((item) => {
         return item !== undefined && item !== null && item !== "";
+      })
+      .filter((item, index, arr) => {
+        return arr.indexOf(item) === index;
       });
     if (tran) {
       const result = [];
